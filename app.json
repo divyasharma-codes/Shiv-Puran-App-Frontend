@@ -25,7 +25,7 @@
         "backgroundColor": "#0a0a23"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.ShivApp"
+      "package": "com.anonymous.shivpuran"
     },
     "web": {
       "favicon": "./assets/favicon.png"
