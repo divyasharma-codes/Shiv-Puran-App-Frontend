@@ -28,6 +28,8 @@
       "package": "com.anonymous.shivpuran"
     },
     "web": {
+      "bundler":"metro",
+      "output":"static",
       "favicon": "./assets/favicon.png"
     },
     "extra": {
