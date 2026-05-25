@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
-import Shiv from '../assets/Shiv.jpg'
-import shiv from '../assets/Shiv.png'
+import Shiv from '../assets/shiv1.jpg'
+import shiv from '../assets/shiv.png'
 
 export default function HomeScreen({navigation}) {
   const [menuOpen, setMenuOpen] = useState(false);
