@@ -32,6 +32,9 @@
       "output":"static",
       "favicon": "./assets/favicon.png"
     },
+    "experiments": {
+      "typedRoutes": false
+    },
     "extra": {
       "eas": {
         "projectId": "6d0d4d27-87de-4f0f-89ac-9d33328859cc"
