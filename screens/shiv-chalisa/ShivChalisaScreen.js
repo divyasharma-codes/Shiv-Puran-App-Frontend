@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import * as Speech from 'expo-speech'
-import shivChalisa from '../../assets/shivChalisa.avif'
+import shivChalisa from '../../assets/shivChalisa.jpg'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { TouchableOpacity, View,FlatList,Text,StyleSheet,Image, Dimensions, Platform } from 'react-native';
 
