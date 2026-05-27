@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import * as Speech from 'expo-speech'
-import { ScrollView, Text,View,TouchableOpacity,StyleSheet } from 'react-native'
+import { ScrollView, Text,View,TouchableOpacity,StyleSheet, Platform, Dimensions } from 'react-native'
 
 export default function JyotirlingDetailScreen({route,navigation}) {
   const {jyotirling} = route.params
@@ -19,7 +19,9 @@ export default function JyotirlingDetailScreen({route,navigation}) {
     }}
 
   return (      
-    <ScrollView style={styles.container} contentContainerStyle={{paddingBottom:100}}>
+    <View style={{flex:1 ,backgroundColor:'#0a0a23'}} >
+        <ScrollView style={styles.container} contentContainerStyle={{paddingBottom:100, alignItems:'center'}}
+         showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
                           <TouchableOpacity onPress={()=>navigation.goBack()}>
                             <Text style={styles.back}>⬅</Text>
@@ -36,18 +38,27 @@ export default function JyotirlingDetailScreen({route,navigation}) {
         <Text style={styles.loc}> लोकेशन : {jyotirling.location}</Text>
         <Text style={styles.desc}> कहानी : {jyotirling.description}</Text>
     </ScrollView>
-
+    </View>
   )
 }
+
+const isWeb = Platform.OS ==='web'
+const {width} = Dimensions.get('window')
 const styles =  StyleSheet.create({
  container: {
     flex: 1,
+    maxWidth:isWeb ? 900 : '100%',
+    width:'100%',
+    alignSelf:'center',
     backgroundColor: '#0a0a23',
-    paddingTop:40,
-    paddingHorizontal:15
+    paddingTop: 40,
+    paddingHorizontal:isWeb ? 40 :15,
+    paddingBottom:40,
   },
   header:{
     flexDirection:'row',
+    maxWidth:isWeb ? 800 : '100%',
+    width:'100%',
     marginBottom:40,
     justifyContent:'space-between',
     alignItems:'center',

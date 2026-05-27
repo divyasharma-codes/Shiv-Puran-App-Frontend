@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import * as Speech from 'expo-speech'
 import shivAarti from '../../assets/shivAarti.webp'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { FlatList, Text, TouchableOpacity, View ,StyleSheet,Image} from 'react-native'
+import { FlatList, Text, TouchableOpacity, View ,StyleSheet,Image, Dimensions, Platform} from 'react-native'
 
 export default function ShivAartiScreen({navigation}) {
     const [aarti,setAarti] = useState([])
@@ -42,7 +42,8 @@ export default function ShivAartiScreen({navigation}) {
     fetchData()
   }, []);
   return (
-    <View style={styles.container} contentContainerStyle={{paddingBottom:100}}>
+    <View style={{flex:1 ,backgroundColor:'#0a0a23'}} >
+    <View style={styles.container} contentContainerStyle={{paddingBottom:100,alignItems:'center'}} >
         <View style={styles.header}>
             <TouchableOpacity onPress={()=>navigation.goBack()}>
                 <Text style={styles.back}>⬅</Text>
@@ -53,26 +54,39 @@ export default function ShivAartiScreen({navigation}) {
                   </TouchableOpacity>
         </View>
 
+
         <Image source={shivAarti} style={styles.img} />
 
         <FlatList data={aarti}
+        showsVerticalScrollIndicator={false}
             keyExtractor={(item)=>item._id}
             renderItem={({item})=>(
                 <Text style={styles.text}>{item.content}</Text>
             )} />
     </View>
+    </View>
   )
 }
+
+const {width} = Dimensions.get('window')
+const isWeb = Platform.OS === 'web'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    maxWidth:isWeb ? 900 : '100%',
+    width:'100%',
+    alignSelf:'center',
+    alignItems:'center',
     backgroundColor: '#0a0a23',
-    paddingTop:40,
-    paddingHorizontal:15
+    paddingTop: 40,
+    paddingHorizontal:isWeb ? 40 :15,
+    paddingBottom:40,
   },
   header:{
     flexDirection:'row',
-    paddingBottom:20,
+    maxWidth:isWeb ? 800 : '100%',
+    width:'100%',
+    marginBottom:40,
     justifyContent:'space-between',
     alignItems:'center',
   },
@@ -97,10 +111,10 @@ const styles = StyleSheet.create({
     color:'#fff',
   },
   img: {
-    width:300,
-    height:250,
+    width:isWeb && width > 768 ? 800 : 300,
+    height:isWeb && width > 768 ? 300 : 300,
     marginBottom:40,
-    borderRadius:20,
+    resizeMode:'contain',
     alignSelf:'center'
   },
   text: {

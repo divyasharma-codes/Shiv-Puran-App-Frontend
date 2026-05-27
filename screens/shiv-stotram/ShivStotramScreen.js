@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet,Image } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet,Image, Platform, Dimensions, ScrollView } from 'react-native';
 import shivStotram from '../../assets/shivStotram.webp'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -31,6 +31,7 @@ export default function StotramListScreen({navigation}) {
   }, []);
 
   return (
+    <View style={{flex:1,backgroundColor:'#0a0a23'}}>
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={()=>navigation.goBack()}>
@@ -38,11 +39,10 @@ export default function StotramListScreen({navigation}) {
         </TouchableOpacity>
         <Text style={styles.headerTitle}>शिव स्तोत्र</Text>
       </View>
-
-        <Image source={shivStotram} style={styles.img} />
-
+      <Image source={shivStotram} style={styles.img} />
       <FlatList
-        data={stotrams}
+        data={stotrams} 
+        showsVerticalScrollIndicator={false}
         keyExtractor={(item,index) => item._id || index.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity 
@@ -54,15 +54,23 @@ export default function StotramListScreen({navigation}) {
         )}
       />
     </View>
+    </View>
   );
 }
 
+const isWeb = Platform.OS === 'web'
+const {width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
+    maxWidth:isWeb ? 1200 : '100%',
+    width:'100%',
+    alignSelf:'center',
     backgroundColor: '#0a0a23',
     paddingTop:40,
-    paddingHorizontal:15
+    paddingHorizontal:15,
+    paddingVertical:15,
+    paddingBottom:30,
   },
 
   /* 🔥 HEADER */
@@ -70,7 +78,8 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     gap:40,
     alignItems:'center',
-    marginBottom:40
+    marginBottom:40,
+
   },
   back: {
     fontSize: 22,
@@ -83,10 +92,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   img: {
-    width:300,
-    height:300,
+    width:isWeb && width > 768 ? 800 : 300,
+    height:isWeb && width > 768 ? 300 : 300,
     marginBottom:40,
-    borderRadius:20,
+    resizeMode:'contain',
     alignSelf:'center'
   },
 
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
     marginBottom:15,
     alignItems:'center',
     alignSelf:'center',
-    width:'100%'
+    width:isWeb && width > 768 ? 1000 : '100%'
   },
 
   text: {

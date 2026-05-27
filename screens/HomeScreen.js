@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Platform, Dimensions } from 'react-native';
 import Shiv from '../assets/shiv1.jpg'
 import shiv from '../assets/shiv.png'
 
@@ -149,6 +149,8 @@ export default function HomeScreen({navigation}) {
   );
 }
 
+const isWeb = Platform.OS === 'web'
+const {width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   header: {
     height:100,
@@ -168,11 +170,16 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
   container: {
-    padding: 20,
+    maxWidth:isWeb ? 1200 : '100%',
+    width:'100%',
+    alignSelf:'center',
+    paddingHorizontal:15,
+    paddingTop:10,
+    paddingVertical:30
   },
   image: {
-    width:"100%",
-    height:200,
+    width:isWeb && width > 768 ? 800 : "100%",
+    height:isWeb && width > 768 ? 600 : 200,
     borderRadius:20,
     marginBottom:20,
     alignSelf:'center',
@@ -204,16 +211,18 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     bottom: 0,
-    width: 250,
+    width:isWeb ? 320 :  250,
     backgroundColor: '#01021d',
     padding: 20,
     paddingTop:50,
+    zIndex:100
   },
   img :{
-      width:170,
-      height:170,
+      width:isWeb ? 200 : 170,
+      height:isWeb ? 200 : 170,
       borderRadius:100,
       marginBottom:30,
+      alignSelf:'center'
   },
   close: {
     color: '#fff',
@@ -222,8 +231,9 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     color: '#fff',
-    fontSize: 20,
+    fontSize:isWeb ? 22 :  20,
     marginBottom: 15,
     paddingTop:10,
+    paddingVertical:8
   },
 });

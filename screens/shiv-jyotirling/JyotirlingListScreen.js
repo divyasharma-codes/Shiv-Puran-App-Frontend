@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react'
-import { View,Text,FlatList,StyleSheet,TouchableOpacity,Image} from 'react-native'
+import { View,Text,FlatList,StyleSheet,TouchableOpacity,Image, Platform, Dimensions} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import shivJyotirling from '../../assets/shivJyotirling.png'
 
@@ -29,6 +29,7 @@ export default function JyotirlingListScreen({navigation}) {
     fetchData()
   }, []);
   return (
+    <View style={{flex:1,backgroundColor:'#0a0a23'}}>
     <View style={styles.container}>
         <View style={styles.header}>
                 <TouchableOpacity onPress={()=>navigation.goBack()}>
@@ -42,6 +43,7 @@ export default function JyotirlingListScreen({navigation}) {
                 style={styles.img} />
 
         <FlatList data={jyotirling}
+        showsVerticalScrollIndicator={false}
             keyExtractor={(item,index) => item._id || index.toString()}
             renderItem={({item})=>(
                 <TouchableOpacity style={styles.card}
@@ -52,14 +54,23 @@ export default function JyotirlingListScreen({navigation}) {
                 </TouchableOpacity>
             )} />
     </View>
+    </View>
   )
 }
+
+const isWeb = Platform.OS === 'web'
+const {width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
+    maxWidth:isWeb ? 1200 : '100%',
+    width:'100%',
+    alignSelf:'center',
     backgroundColor: '#0a0a23',
     paddingTop:40,
-    paddingHorizontal:15
+    paddingHorizontal:15,
+    paddingVertical:15,
+    paddingBottom:30,
   },
 
   /* 🔥 HEADER */
@@ -82,10 +93,10 @@ const styles = StyleSheet.create({
   },
 
   img:{
-    width:300,
-    height:300,
-    borderRadius:20,
+    width:isWeb && width > 768 ? 800 : 300,
+    height:isWeb && width > 768 ? 300 : 300,
     marginBottom:40,
+    resizeMode:'contain',
     alignSelf:'center'
   },
   /* 🔥 CARD */

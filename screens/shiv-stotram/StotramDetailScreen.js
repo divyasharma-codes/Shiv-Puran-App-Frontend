@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity,} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, Platform,} from 'react-native';
 import * as Speech from 'expo-speech'
 import {  useState } from 'react';
 
@@ -21,7 +21,9 @@ export default function StotramDetailScreen({route,navigation}) {
     }}
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{paddingBottom:100}}>
+    <View style={{flex:1 ,backgroundColor:'#0a0a23'}} >
+    <ScrollView style={styles.container} contentContainerStyle={{paddingBottom:100, alignItems:'center'}}
+     showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
         <TouchableOpacity onPress={()=>navigation.goBack()}>
           <Text style={styles.back}>⬅</Text>
@@ -34,18 +36,27 @@ export default function StotramDetailScreen({route,navigation}) {
       <Text style={styles.title}>नाम : {stotram.title}</Text>
       <Text style={styles.content}>स्तोत्र : {stotram.content}</Text>
     </ScrollView>
+    </View>
   );
 }
 
+const {width} = Dimensions.get('window')
+const isWeb = Platform.OS === 'web'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    maxWidth:isWeb ? 900 : '100%',
+    width:'100%',
+    alignSelf:'center',
     backgroundColor: '#0a0a23',
     paddingTop: 40,
-    paddingHorizontal:15
+    paddingHorizontal:isWeb ? 40 :15,
+    paddingBottom:40,
   },
   header:{
     flexDirection:'row',
+    maxWidth:isWeb ? 800 : '100%',
+    width:'100%',
     marginBottom:40,
     justifyContent:'space-between',
     alignItems:'center',

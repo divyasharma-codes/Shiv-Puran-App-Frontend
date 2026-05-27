@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import shivPuran from '../../assets/ShivPuran.jpg'
-import { View, Text, StyleSheet, TouchableOpacity,ScrollView,Image} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,ScrollView,Image, Platform, Dimensions} from 'react-native';
 
 const SahitaScreen = ({navigation}) => {
   const [data, setData] = useState([]);
@@ -28,6 +28,7 @@ const SahitaScreen = ({navigation}) => {
     fetchData()
   }, []);
      return (
+      <View style={{flex:1,backgroundColor:'#0a0a23'}}>
     <View style={styles.container}>
 
       {/* 🔥 HEADER */}
@@ -62,18 +63,27 @@ const SahitaScreen = ({navigation}) => {
       </ScrollView>
 
       </View>
+      </View>
   );
 };
+
+const isWeb = Platform.OS === 'web'
+const {width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   loading: {
     color:'#fff',
     marginTop:10,
   },
   container: {
-    flex: 1,
+   flex:1,
+    maxWidth:isWeb ? 1200 : '100%',
+    width:'100%',
+    alignSelf:'center',
     backgroundColor: '#0a0a23',
     paddingTop:40,
-    paddingHorizontal:15
+    paddingHorizontal:15,
+    paddingVertical:15,
+    paddingBottom:30,
   },
 
   /* 🔥 HEADER */
@@ -96,10 +106,10 @@ const styles = StyleSheet.create({
   },
 
   img:{
-    width:300,
-    height:300,
-    borderRadius:20,
+     width:isWeb && width > 768 ? 800 : 300,
+    height:isWeb && width > 768 ? 300 : 300,
     marginBottom:40,
+    resizeMode:'contain',
     alignSelf:'center'
   },
 
@@ -116,7 +126,7 @@ const styles = StyleSheet.create({
     marginBottom:15,
     alignItems:'center',
     alignSelf:'center',
-    width:'100%'
+     width: '100%'
   },
 
   cardText: {

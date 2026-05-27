@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import shivMandir from '../../assets/shivMandir.avif'
-import { TouchableOpacity,Text ,StyleSheet,FlatList,View,Image} from 'react-native'
+import shivMandir from '../../assets/shivMandir.jpg'
+import { TouchableOpacity,Text ,StyleSheet,FlatList,View,Image, Platform, Dimensions} from 'react-native'
 
 
 function MandirListScreen({navigation}) {
@@ -31,6 +31,7 @@ function MandirListScreen({navigation}) {
     fetchData()
   }, []);
   return (
+    <View style={{flex:1,backgroundColor:'#0a0a23'}}>
     <View style={styles.container}>
           <View style={styles.header}>
             <TouchableOpacity onPress={()=>navigation.goBack()}>
@@ -42,6 +43,7 @@ function MandirListScreen({navigation}) {
         <Image source={shivMandir} style={styles.img} />
 
         <FlatList data={mandir} 
+        showsVerticalScrollIndicator={false}
             keyExtractor={(item,index) => item._id || index.toString()}
             renderItem={({item})=>(
                 <TouchableOpacity style={styles.card}
@@ -52,17 +54,25 @@ function MandirListScreen({navigation}) {
                     </TouchableOpacity>
             )}/>
     </View>
+    </View>
   )
 }
 
 export default MandirListScreen
 
+const isWeb = Platform.OS === 'web'
+const {width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
+    maxWidth:isWeb ? 1200 : '100%',
+    width:'100%',
+    alignSelf:'center',
     backgroundColor: '#0a0a23',
     paddingTop:40,
-    paddingHorizontal:15
+    paddingHorizontal:15,
+    paddingVertical:15,
+    paddingBottom:30,
   },
 
   /* 🔥 HEADER */
@@ -83,11 +93,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   img: {
-    width:300,
-    height:300,
-    alignSelf:'center',
+     width:isWeb && width > 768 ? 800 : 300,
+    height:isWeb && width > 768 ? 300 : 300,
     marginBottom:40,
-    borderRadius:20
+    resizeMode:'contain',
+    alignSelf:'center'
   },
 
   /* 🔥 CARD */
@@ -98,7 +108,7 @@ const styles = StyleSheet.create({
     marginBottom:15,
     alignItems:'center',
     alignSelf:'center',
-    width:'100%'
+    width: '100%'
   },
 
   text: {

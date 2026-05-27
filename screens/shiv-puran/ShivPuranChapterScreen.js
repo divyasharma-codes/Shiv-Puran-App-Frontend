@@ -1,6 +1,6 @@
 // screens/ChapterListScreen.jsx
 import { useEffect, useState } from 'react';
-import { View,Text,TouchableOpacity, StyleSheet, SafeAreaView, ScrollView,} from 'react-native';
+import { View,Text,TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, Platform, Dimensions,} from 'react-native';
 
 const ChapterListScreen = ({route,navigation}) => {
   const {sahitaId} = route.params
@@ -40,6 +40,7 @@ const ChapterListScreen = ({route,navigation}) => {
   }, [sahitaId]);
 
   return (
+    <View style={{flex:1,backgroundColor:'#0a0a23'}}>
     <SafeAreaView style={styles.container}>
 
       {/* 🔥 HEADER */}
@@ -73,10 +74,14 @@ const ChapterListScreen = ({route,navigation}) => {
       </ScrollView>
 
     </SafeAreaView>
+    </View>
   );
 };
 
 export default ChapterListScreen;
+
+const isWeb = Platform.OS === 'web'
+const {width} = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   listContainer: {
@@ -91,10 +96,15 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
   container: {
-    flex: 1,
+    flex:1,
+    maxWidth:isWeb ? 1200 : '100%',
+    width:'100%',
+    alignSelf:'center',
     backgroundColor: '#0a0a23',
     paddingTop:40,
-    paddingHorizontal:15
+    paddingHorizontal:15,
+    paddingVertical:15,
+    paddingBottom:30,
   },
 
   /* 🔥 HEADER */
@@ -128,7 +138,7 @@ const styles = StyleSheet.create({
     marginBottom:15,
     alignItems:'center',
     alignSelf:'center',
-    width:'100%'
+     width: '100%'
   },
 
   cardText: {

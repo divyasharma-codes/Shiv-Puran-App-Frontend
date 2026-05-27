@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import * as Speech from 'expo-speech'
 import { View, Text,TouchableOpacity,StyleSheet,
-  SafeAreaView,ScrollView,ActivityIndicator,} from 'react-native';
+  SafeAreaView,ScrollView,ActivityIndicator,
+  Dimensions,
+  Platform,} from 'react-native';
 
 const ChapterDetailScreen = ({route,navigation}) => {
   const {chapterId} = route.params
@@ -50,6 +52,7 @@ const ChapterDetailScreen = ({route,navigation}) => {
         }
 
   return (
+     <View style={{flex:1 ,backgroundColor:'#0a0a23'}} >
     <View style={styles.container}>
 
       {/* 🔥 HEADER */}
@@ -65,7 +68,8 @@ const ChapterDetailScreen = ({route,navigation}) => {
       </View>
 
       {/* 🔥 CONTENT */}
-      <ScrollView style={styles.content}  contentContainerStyle={{flexGrow:1,paddingBottom:100}}>
+      <ScrollView style={styles.content}  contentContainerStyle={{flexGrow:1,paddingBottom:100,alignItems:'center'}}
+       showsVerticalScrollIndicator={false}>
         {!chapter ? (
           <Text style={styles.loading}>Loading...</Text>
         ) : (
@@ -82,11 +86,14 @@ const ChapterDetailScreen = ({route,navigation}) => {
       </ScrollView>
 
     </View>
+    </View>
   );
 };
 
 export default ChapterDetailScreen;
 
+const {width} = Dimensions.get('window')
+const isWeb = Platform.OS === 'web'
 const styles = StyleSheet.create({
   loaderContainer: {
     flex:1,
@@ -100,13 +107,21 @@ const styles = StyleSheet.create({
   },
   container: {
    flex: 1,
+    maxWidth:isWeb ? 900 : '100%',
+    width:'100%',
+    alignSelf:'center',
     backgroundColor: '#0a0a23',
-    paddingTop:40,
-    paddingHorizontal:15
+    paddingTop: 40,
+    alignItems:'center',
+    paddingHorizontal:isWeb ? 40 :15,
+    paddingBottom:40,
   },
 
   header:{
     flexDirection:'row',
+    maxWidth:isWeb ? 800 : '100%',
+    width:'100%',
+    marginBottom:40,
     justifyContent:'space-between',
     alignItems:'center',
   },

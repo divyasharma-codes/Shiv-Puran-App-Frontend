@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import shivAvatar from '../../assets/shivAvatar.webp'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { FlatList, Text, TouchableOpacity, View,StyleSheet,Image } from 'react-native'
+import { FlatList, Text, TouchableOpacity, View,StyleSheet,Image, Platform, Dimensions } from 'react-native'
 
 export default function AvatarListScreen({navigation}) {
     const [avatar,setAvatar] = useState([])
@@ -28,6 +28,7 @@ export default function AvatarListScreen({navigation}) {
     fetchData()
   }, []);
   return (
+    <View style={{flex:1,backgroundColor:'#0a0a23'}}>
     <View style={styles.container}>
         <View style={styles.header}>
             <TouchableOpacity onPress={()=>navigation.goBack()}>
@@ -39,6 +40,7 @@ export default function AvatarListScreen({navigation}) {
         <Image source={shivAvatar} style={styles.img} />
 
         <FlatList data={avatar}
+         showsVerticalScrollIndicator={false}
         keyExtractor={(item)=>item._id || index.toString()}
         renderItem={({item})=>(
             <TouchableOpacity style={styles.card}
@@ -47,14 +49,23 @@ export default function AvatarListScreen({navigation}) {
             </TouchableOpacity>
         )} />
     </View>
+    </View>
   )
 }
+
+const isWeb = Platform.OS === 'web'
+const {width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
+    maxWidth:isWeb ? 1200 : '100%',
+    width:'100%',
+    alignSelf:'center',
     backgroundColor: '#0a0a23',
     paddingTop:40,
-    paddingHorizontal:15
+    paddingHorizontal:15,
+    paddingVertical:15,
+    paddingBottom:30,
   },
 
   /* 🔥 HEADER */
@@ -77,10 +88,10 @@ const styles = StyleSheet.create({
   },
 
   img:{
-    width:300,
-    height:300,
-    borderRadius:10,
+    width:isWeb && width > 768 ? 800 : 300,
+    height:isWeb && width > 768 ? 300 : 300,
     marginBottom:40,
+    resizeMode:'contain',
     alignSelf:'center'
   },
   /* 🔥 CARD */
