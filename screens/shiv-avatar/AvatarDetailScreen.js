@@ -62,7 +62,6 @@ const styles =  StyleSheet.create({
   back: {
     fontSize: 22,
     color: '#fff',
-    marginRight: 10,
   },
 
   headerTitle: {
@@ -79,10 +78,6 @@ const styles =  StyleSheet.create({
   sound: {
     fontSize:24,
     color:'#fff',
-  },container: {
-   flex: 1,
-    backgroundColor: '#0a0a23',
-    padding:50,
   },
   name: {
     color: '#fff',
