@@ -111,10 +111,10 @@ const styles = StyleSheet.create({
     color:'#fff',
   },
   img: {
-    width:isWeb && width > 768 ? 800 : 300,
-    height:isWeb && width > 768 ? 300 : 300,
+    width:300,
+    height:250,
     marginBottom:40,
-    resizeMode:'contain',
+    borderRadius:20,
     alignSelf:'center'
   },
   text: {

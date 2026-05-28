@@ -45,7 +45,6 @@ const styles =  StyleSheet.create({
     maxWidth:isWeb ? 900 : '100%',
     width:'100%',
     alignSelf:'center',
-    alignItems:'center',
     backgroundColor: '#0a0a23',
     paddingTop: 40,
     paddingHorizontal:isWeb ? 40 :15,

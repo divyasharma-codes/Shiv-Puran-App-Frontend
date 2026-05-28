@@ -93,11 +93,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   img: {
-     width:isWeb && width > 768 ? 800 : 300,
-    height:isWeb && width > 768 ? 300 : 300,
+    width:300,
+    height:300,
+    alignSelf:'center',
     marginBottom:40,
-    resizeMode:'contain',
-    alignSelf:'center'
+    borderRadius:20
   },
 
   /* 🔥 CARD */

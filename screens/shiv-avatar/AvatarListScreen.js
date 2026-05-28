@@ -88,10 +88,10 @@ const styles = StyleSheet.create({
   },
 
   img:{
-    width:isWeb && width > 768 ? 800 : 300,
-    height:isWeb && width > 768 ? 300 : 300,
+    width:300,
+    height:300,
+    borderRadius:10,
     marginBottom:40,
-    resizeMode:'contain',
     alignSelf:'center'
   },
   /* 🔥 CARD */
